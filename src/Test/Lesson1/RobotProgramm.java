@@ -40,5 +40,26 @@ public class RobotProgramm {
         robot2.powerOff();
 
 
+        System.out.println("\nRobot3");
+        Robot3 robot3 = new Robot3();
+        robot3.getInfo();
+        robot3.setName("Alfred");
+        robot3.addLevel();
+        robot3.getInfo();
+
+        for (int i = 0; i < 5; i++) {
+            robot3.work();
+        }
+
+        robot3.power();
+        for (int i = 0; i < 5; i++) {
+            robot3.work();
+        }
+
+        robot3.power();
+        for (int i = 0; i < 5; i++) {
+            robot3.work();
+        }
+
     }
 }
