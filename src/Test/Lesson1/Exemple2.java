@@ -13,6 +13,15 @@ public class Exemple2 {
 
         var dis = Point2D.Distance(a, b);
         System.out.println(dis);
+
+
+
+
+
+        Point3D a1 = new Point3D(3,6,8);
+        Point3D b1 = new Point3D(2,1,7);
+        var disd = Point3D.Distance(a1, b1);
+        System.out.println(disd);
     }
 
 
