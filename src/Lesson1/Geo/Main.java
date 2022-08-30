@@ -13,7 +13,12 @@ public class Main {
         gt.append(vasya, jane);
         gt.append(vasya, ivan);
 
+        gt.append(vasya, irina);
+        gt.append(vasya, vasya);
+
         System.out.println(new Reserch(gt).spend(irina,
+                Relationship.parent));
+        System.out.println(new Reserch(gt).spend(vasya,
                 Relationship.parent));
     }
 
