@@ -1,5 +1,8 @@
 package Lesson1.Geo;
 
+import Lesson1.Geo.Animal.Cat;
+import Lesson1.Geo.Animal.Dog;
+
 public class Main {
     public static void main(String[] args) {
         Person irina = new Person("Ирина");
@@ -15,6 +18,11 @@ public class Main {
 
         gt.append(vasya, irina);
         gt.append(vasya, vasya);
+
+        Cat cat = new Cat("cat", 2);
+        Dog dog = new Dog();
+        vasya.call(cat);
+        irina.call(dog);
 
         System.out.println(new Reserch(gt).spend(irina,
                 Relationship.parent));
