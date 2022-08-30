@@ -24,9 +24,9 @@ public class Main {
         vasya.call(cat);
         irina.call(dog);
 
-        System.out.println(new Reserch(gt).spend(irina,
+        System.out.println(new Research(gt).spend(irina,
                 Relationship.parent));
-        System.out.println(new Reserch(gt).spend(vasya,
+        System.out.println(new Research(gt).spend(vasya,
                 Relationship.parent));
     }
 
