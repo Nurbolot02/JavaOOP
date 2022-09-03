@@ -9,10 +9,6 @@ public abstract class Animal {
         this.age = age;
     }
 
-    public Animal(){
-        this(null, 0);
-    }
-
     public abstract String voice();
 
 
