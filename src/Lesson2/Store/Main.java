@@ -1,38 +1,30 @@
 package Lesson2.Store;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Seller> sellers = new ArrayList<>();
-        ArrayList<Consumer> consumers = new ArrayList<>();
-        Random random = new Random();
+        Seller seller = new Seller("Vasya", 50, 100);
+        Consumer consumer = new Consumer("Ivan", 100, 100);
 
-        ArrayList<Item> items = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            items.add(new Item());
-        }
+        Item book = new Item(NameOfProducts.RichDadPoorDad, 20, 10, Category.BOOK);
+        Item pizza = new Item(NameOfProducts.PIZZA, 10, 10, Category.FOOD);
+        Item pencil = new Item(NameOfProducts.PENCIL, 100, 5, Category.USEFUL);
 
-        for (int i = 0; i < 10; i++) {
-            sellers.add(new Seller());
-        }
+        seller.addItem(book.getNameOfItem(), book);
+        seller.addItem(pizza.getNameOfItem(), pizza);
+        seller.addItem(pencil.getNameOfItem(), pencil);
+        seller.showInfo();
+        seller.showItems();
 
-        for (int i = 0; i < 10; i++) {
-            consumers.add(new Consumer());
-        }
+        consumer.showInfo();
+        consumer.showWishList();
+        consumer.setWishList(NameOfProducts.PIZZA, new Item(NameOfProducts.PIZZA, 1, 10, Category.BOOK));
+        consumer.showWishList();
 
-
-        for (int i = 0; i < 10; i++) {
-            consumers.get(i).showInfo(consumers.get(i));
-            sellers.get(i).showInfo(sellers.get(i));
-        }
-
-
-        consumers.get(9).setBucket(items.get(9));
-        consumers.get(9).setBucket(items.get(8));
-        consumers.get(9).totalCost(consumers.get(9).bucket);
-        consumers.get(9).areYouPoor(consumers.get(9));
+        consumer.setBucket(NameOfProducts.RichDadPoorDad, new Item(NameOfProducts.RichDadPoorDad, 20, 10, Category.BOOK));
+        seller.showInfo();
+        consumer.showInfo();
+        consumer.pay(seller);
+        seller.showInfo();
+        consumer.showInfo();
     }
 }
