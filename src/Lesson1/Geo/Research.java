@@ -11,14 +11,13 @@ public class Research {
     }
 
     public ArrayList<String> spend(Person p, Relationship re) {
-        if (p == null || re == null){
+        if (p == null || re == null) {
             System.out.printf("Pole is null");
-            System.exit(-1);
             return null;
-        }else {
+        } else {
             for (Node t : tree) {
-                if (t.p1.fullName == p.fullName && t.re == re) {
-                    result.add(t.p2.fullName);
+                if (t.p2.getFullName() == p.getFullName() && t.re == re) {
+                    result.add(t.p1.getFullName());
                 }
             }
             return result;
