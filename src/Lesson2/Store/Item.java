@@ -1,32 +1,38 @@
 package Lesson2.Store;
 
-import java.util.Random;
-
 public class Item {
-    private String nameOfItem;
+    private NameOfProducts nameOfItem;
     private double cost;
     private Category category;
-    private static int count;
+    private static int countOfItems;
+    private int count;
+    private int Sales;
 
     static {
-        count = 0;
+        countOfItems = 0;
     }
 
-    public Item(String nameOfItem, double cost, Category category) {
+    public Item(NameOfProducts nameOfItem, int count, double cost, Category category) {
         this.nameOfItem = nameOfItem;
         this.cost = cost;
         this.category = category;
+        this.count = count;
+        countOfItems++;
     }
 
-    public Item() {
-        this(String.format("product %d", count++), new Random().nextDouble(100), ((new Random().nextInt(4) == 0) ? Category.Food : Category.Hygiene));
+    public int getCount() {
+        return count;
     }
 
-    public String getNameOfItem() {
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public NameOfProducts getNameOfItem() {
         return nameOfItem;
     }
 
-    public void setNameOfItem(String nameOfItem) {
+    public void setNameOfItem(NameOfProducts nameOfItem) {
         this.nameOfItem = nameOfItem;
     }
 
@@ -44,5 +50,13 @@ public class Item {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public int getSales() {
+        return Sales;
+    }
+
+    public void setSales(int sales) {
+        Sales = sales;
     }
 }
