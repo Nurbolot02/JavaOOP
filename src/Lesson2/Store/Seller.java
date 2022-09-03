@@ -1,11 +1,9 @@
 package Lesson2.Store;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.TreeMap;
 
-public class Seller extends Human{
-    private List<Item> items = new ArrayList<>();
+public class Seller extends Human {
+    private TreeMap<NameOfProducts, Item> items = new TreeMap<>();
     public static int count;
 
     static {
@@ -14,17 +12,49 @@ public class Seller extends Human{
 
     public Seller(String name, double money, int loveIndex) {
         super(name, money, loveIndex);
+        count++;
     }
-    public Seller(){
-        super(String.format("Seller %d", count++), new Random().nextDouble(100), new Random().nextInt(10));
+
+    @Override
+    public void Discount(Item bucket) {
 
     }
 
-    public List<Item> getItems() {
+
+    public void showItems() {
+        System.out.println("Seller products");
+        for (Item items : items.values()) {
+            System.out.printf("product name: %s \nCategory: %s \nPrice: %s$ \nCountOfProduct: %s \nSales: %s\n\n",
+                    items.getNameOfItem(), items.getCategory(), items.getCost(), items.getCount(), items.getSales());
+        }
+        for (int i = 0; i < items.size(); i++) {
+
+        }
+    }
+
+    public TreeMap<NameOfProducts, Item> getItems() {
         return items;
     }
 
+    public void addItem(NameOfProducts name, Item item) {
+        if (name.equals(item.getNameOfItem())) {
+            items.put(name, item);
+            System.out.printf("%s успешно добавлен в полку товаров!\n", item.getNameOfItem());
+        } else {
+            System.out.println("Не удалось добавить товар!");
+        }
+    }
 
+    public int setItems(NameOfProducts name, Item item) {
+        if (this.items.get(name).getCount() > 1) {
+            this.items.get(name).setCount(this.items.get(name).getCount() - 1);
+            this.setMoney(this.getMoney() + item.getCost());
+            return 0;
+        } else {
+            System.out.println("продукта " + name + " пока что нету!");
+            return -1;
+        }
+    }
 
     @Override
     public void walkInStorage() {
