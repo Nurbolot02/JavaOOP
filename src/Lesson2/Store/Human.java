@@ -1,17 +1,10 @@
 package Lesson2.Store;
 
-public abstract class Human implements Communication, GetInfo {
+public abstract class Human implements Communication, GetInfo, Dispute {
     private String name;
     private double money;
     private int loveIndex;
-
-    public int getLoveIndex() {
-        return loveIndex;
-    }
-
-    public void setLoveIndex(int loveIndex) {
-        this.loveIndex = loveIndex;
-    }
+    private int maxLoveIndex;
 
     public Human(String name, double money, int loveIndex) {
         this.name = name;
@@ -34,4 +27,22 @@ public abstract class Human implements Communication, GetInfo {
     public void setMoney(double money) {
         this.money = money;
     }
+
+    public int getMaxLoveIndex() {
+        return maxLoveIndex;
+    }
+
+    public void setMaxLoveIndex(int maxLoveIndex) {
+        this.maxLoveIndex = maxLoveIndex;
+    }
+
+    public int getLoveIndex() {
+        return loveIndex;
+    }
+
+    public void setLoveIndex(int loveIndex) {
+        this.loveIndex = loveIndex;
+    }
+
+    public abstract void Discount(Item bucket);
 }
