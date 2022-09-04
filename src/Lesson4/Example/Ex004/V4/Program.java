@@ -25,9 +25,12 @@ public class Program {
         System.out.println();
 
         System.out.println(pTchaikovsky.count());
-        for (int index = 0; index < pTchaikovsky.count(); index++) {
-            System.out.println(pTchaikovsky.get(index));
+        for (Content content: mGlinka){
+            System.out.println(content.name);
         }
+//        for (int index = 0; index < pTchaikovsky.count(); index++) {
+//            System.out.println(pTchaikovsky.get(index));
+//        }
 
         // Repository<VideoContent> videoContent = new Repository<>("videoContent");
         // videoContent.add(new VideoContent("ВИДЕО 1"));
