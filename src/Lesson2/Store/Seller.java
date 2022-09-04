@@ -1,6 +1,9 @@
 package Lesson2.Store;
 
+import java.util.Iterator;
+import java.util.Spliterator;
 import java.util.TreeMap;
+import java.util.function.Consumer;
 
 public class Seller extends Human {
     private TreeMap<NameOfProducts, Item> items = new TreeMap<>();
