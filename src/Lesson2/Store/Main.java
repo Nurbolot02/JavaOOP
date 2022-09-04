@@ -26,5 +26,8 @@ public class Main {
         consumer.pay(seller);
         seller.showInfo();
         consumer.showInfo();
+
+        consumer.showInfoIterator();
+        seller.showInfoIterator();
     }
 }
