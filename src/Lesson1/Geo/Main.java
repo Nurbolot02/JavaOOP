@@ -1,7 +1,10 @@
 package Lesson1.Geo;
 
+import Lesson1.Geo.Animal.Animal;
 import Lesson1.Geo.Animal.Cat;
 import Lesson1.Geo.Animal.Dog;
+
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -34,6 +37,31 @@ public class Main {
         irina.getAllRelatives(gt);
         jane.getAllRelatives(gt);
         masha.play(ivan);
+
+
+        cat.showInfo();
+        dog.showInfo();
+        irina.showInfo();
+
+        ArrayList<Animal> animals = new ArrayList<>();
+        animals.add(cat);
+        animals.add(dog);
+
+        ArrayList<Person> people = new ArrayList<>();
+        people.add(irina);
+        people.add(jane);
+        people.add(jek);
+        people.add(vasya);
+
+        System.out.println("-----------------------");
+        for (Animal animal : animals) {
+            animal.showInfo();
+        }
+        System.out.println("-----------------------");
+
+        for (Person person : people) {
+            person.showInfo();
+        }
     }
 
 }
