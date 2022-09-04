@@ -1,15 +1,22 @@
 package Lesson2.Store;
 
-public abstract class Human implements Communication, GetInfo, Dispute {
+import java.util.Iterator;
+
+public abstract class Human implements Communication, GetInfo, Dispute, Iterator<String> {
     private String name;
     private double money;
     private int loveIndex;
     private int maxLoveIndex;
+    private int index = 0;
 
     public Human(String name, double money, int loveIndex) {
         this.name = name;
         this.money = money;
         this.loveIndex = loveIndex;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public String getName() {
@@ -45,4 +52,24 @@ public abstract class Human implements Communication, GetInfo, Dispute {
     }
 
     public abstract void Discount(Item bucket);
+
+    @Override
+    public boolean hasNext() {
+        return index++ < 4;
+    }
+
+    @Override
+    public String next() {
+        switch (index){
+            case 1:
+                return name;
+            case 2:
+                return String.valueOf(money);
+            case 3:
+                return String.valueOf(loveIndex);
+            case 4:
+                return String.valueOf(maxLoveIndex);
+        }
+        return "";
+    }
 }
