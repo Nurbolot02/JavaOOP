@@ -3,9 +3,10 @@ package Lesson1.Geo;
 
 import Lesson1.Geo.Animal.Animal;
 
+import java.util.Iterator;
 import java.util.Objects;
 
-public class Person implements Communication, SearchRelatives {
+public class Person implements Communication, SearchRelatives, Iterator<String>, GetInfoP {
     private String fullName;
     private Gender gender;
 
@@ -20,6 +21,10 @@ public class Person implements Communication, SearchRelatives {
 
     public Gender getGender() {
         return this.gender;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     @Override
@@ -43,5 +48,23 @@ public class Person implements Communication, SearchRelatives {
     @Override
     public void play(Person person) {
         System.out.printf("%s play with %s \n", this.getFullName(), person.fullName);
+    }
+
+    int index = 0;
+
+    @Override
+    public boolean hasNext() {
+        return index++ < 2;
+    }
+
+    @Override
+    public String next() {
+        switch (index) {
+            case 1:
+                return fullName;
+            case 2:
+                return String.valueOf(String.valueOf(gender));
+        }
+        return null;
     }
 }
