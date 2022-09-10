@@ -24,7 +24,7 @@ public class Presenter {
                     System.exit(0);
                 } else if (model.isNumber(userInput) && ((Integer.parseInt(userInput) > 0) && model.getNotDoneTasks().size() > 0 &&  model.getNotDoneTasks().size() >= Integer.parseInt(userInput) )) {
                     System.out.println("");
-                    model.TaskFunctions(Integer.parseInt(userInput) - 1, view);
+                    model.TaskFunctions(Integer.parseInt(userInput) - 1, view, saveAsJson);
                 } else {
                     System.out.println("\nwrong function try again please!");
                 }
