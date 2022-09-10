@@ -58,27 +58,36 @@ public class Model {
                         "\n4 - change ending time" +
                         "r - remove"
      */
-    public void TaskFunctions(int userInput, View view) {
-        view.showTaskFunctions();
-        switch (userInput) {
-            case 1:
-                notDoneTasks.get(userInput).setState(notDoneTasks.get(userInput).getState() == State.NotDone ? State.Performed : State.NotDone);
-                System.out.println(notDoneTasks.get(userInput).getTask() + " changed state to " + notDoneTasks.get(userInput).getState());
-                break;
-            case 2:
-                System.out.println();
-                break;
-            case 3:
-                System.out.println("");
-                break;
-            case 4:
-                System.out.println("");
-                break;
-            case 5:
-                System.out.println(notDoneTasks.get(userInput).getTask() + " removed");
-                notDoneTasks.remove(userInput);
-                break;
+    public void TaskFunctions(int userInput, View view, SaveAsJson saveAsJson) {
+        String userInputting = "";
+        while (true){
+
+            userInputting = view.showTaskFunctions();
+            System.out.println();
+            switch (userInputting) {
+                case "1":
+                    notDoneTasks.get(userInput).setState(notDoneTasks.get(userInput).getState() == State.NotDone ? State.Performed : State.NotDone);
+                    System.out.println(notDoneTasks.get(userInput).getTask() + " changed state to " + notDoneTasks.get(userInput).getState());
+                    break;
+                case "2":
+                    System.out.println();
+                    break;
+                case "3":
+                    System.out.println("");
+                    break;
+                case "4":
+                    System.out.println("");
+                    break;
+                case "r":
+                    System.out.println(notDoneTasks.get(userInput).getTask() + " removed");
+                    notDoneTasks.remove(userInput);
+                    saveAsJson.saveData(getTasks());
+                    break;
+                default:
+                    System.out.println("wrong function try again!");
+            }
         }
+
     }
 
     public void recoveryTask(String str){
