@@ -6,13 +6,13 @@ import java.util.Calendar;
 
 public class SaveAsJson extends Data {
     @Override
-    public void saveData(ArrayList<ArrayList<Task>> tasks) {
-
-        String path = "src/Lesson4/todoPlanner/tasks.json";
+    public void saveData(ArrayList<Task> tasks) {
+        String userDir = System.getProperty("user.dir");
+        String path = userDir.concat("/src/Lesson4/todoPlanner/tasks.json");
 
         try {
             FileWriter fileWriter = new FileWriter(path, false);
-            for (Task task : tasks.get(0)) {
+            for (Task task : tasks) {
                 fileWriter.write(task.getId());
                 fileWriter.write(":{");
                 fileWriter.write(task.getTask());
@@ -50,7 +50,8 @@ public class SaveAsJson extends Data {
 
     @Override
     public String readData(Model model) {
-        String path = "src/Lesson4/todoPlanner/tasks.json";
+        String userDir = System.getProperty("user.dir");
+        String path = userDir.concat("/src/Lesson4/todoPlanner/tasks.json");
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             String str = "";
@@ -59,7 +60,7 @@ public class SaveAsJson extends Data {
             }
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.print(" ");
         }
         return null;
     }

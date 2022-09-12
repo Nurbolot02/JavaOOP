@@ -12,16 +12,18 @@ package Lesson4.todoPlanner;
 другие компоненты
  */
 
+import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Objects;
 
-public class Task {
+public class Task implements Serializable {
     private int id;
     private String task;
     private String taskDescription;
     private Calendar addingTime;
     private Calendar deadlineTime;
     private Group group;
-    private Author author;
+    private String author;
     private static int count;
     private State state;
 
@@ -29,15 +31,18 @@ public class Task {
         count = 0;
     }
 
-    public Task(String task, Calendar addingTime, Calendar deadlineTime, Group group) {
+    public Task(State state, String task, Calendar addingTime, Calendar deadlineTime, Group group) {
         this.id = ++count;
         this.task = task;
         this.taskDescription = "";
         this.addingTime = addingTime;
         this.deadlineTime = deadlineTime;
         this.group = group;
-        this.author =  new Author("Vasya", "Pupkin", Gender.Male, "+744848488", "vasya@gmail.com");
-        this.state = State.NotDone;
+        this.author =  "Vasya";
+        this.state = state;
+    }
+    public Task(String task, Calendar addingTime, Calendar deadlineTime, Group group){
+        this(State.NotDone, task, addingTime, deadlineTime, group);
     }
     public void setState(State state){
         this.state = state;
@@ -103,11 +108,23 @@ public class Task {
         this.group = group;
     }
 
-    public Author getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(Author author) {
+    public void setAuthor(String author) {
         this.author = author;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Task task1)) return false;
+        return getId() == task1.getId() && Objects.equals(getTask(), task1.getTask()) && getGroup() == task1.getGroup() && Objects.equals(getAuthor(), task1.getAuthor()) && getState() == task1.getState();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getTask(), getGroup(), getAuthor(), getState());
     }
 }
