@@ -1,8 +1,8 @@
 package Lesson4.todoPlanner;
 
 public enum Group {
-    Studies("Учёба"), Fitness("Фитнес"), Personal("Личный"), Work("Работа"),
-    Purchase("Покупки"), WishList("Список желаний"), Birthday("День рождения"), Inbox("Входящие");
+    Studies("0"), Fitness("1"), Personal("2"), Work("3"),
+    Purchase("4"), WishList("5"), Birthday("6"), Inbox("7");
     final String description;
 
     Group(String description) {
