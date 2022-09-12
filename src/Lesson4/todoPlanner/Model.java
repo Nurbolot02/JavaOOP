@@ -1,45 +1,44 @@
 package Lesson4.todoPlanner;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class Model {
-    private ArrayList<ArrayList<Task>> tasks;
-    private ArrayList<Task> notDoneTasks;
-    private ArrayList<Task> performedTasks;
-
-    public Model(ArrayList<ArrayList<Task>> tasks, ArrayList<Task> notDoneTasks, ArrayList<Task> performedTasks) {
-        this.tasks = tasks;
-        this.notDoneTasks = notDoneTasks;
-        this.performedTasks = performedTasks;
-    }
+    private final ArrayList<Task> tasks;
 
     public Model() {
-        notDoneTasks = new ArrayList<>();
-        performedTasks = new ArrayList<>();
         tasks = new ArrayList<>();
-        tasks.add(notDoneTasks);
-        tasks.add(performedTasks);
     }
 
-    public ArrayList<ArrayList<Task>> getTasks() {
+    public void setTasks(ArrayList<Task> tasks) {
+        if (tasks == null){
+            System.out.println("Tasks null");
+            return;
+        }
+        boolean f = false;
+        for (Task task: tasks){
+            for (Task task1: this.tasks){
+                if (task.equals(task1)){
+                    f = false;
+                    break;
+                }else {
+                    f = true;
+                }
+            }
+            if (f){
+                this.tasks.add(task);
+            }
+        }
+    }
+
+    public ArrayList<Task> getTasks() {
         return tasks;
     }
 
     public void setTask(Task task) {
-        notDoneTasks.add(task);
-    }
-
-
-    public ArrayList<Task> getPerformedTasks() {
-        return performedTasks;
-    }
-
-    public ArrayList<Task> getNotDoneTasks() {
-        return notDoneTasks;
+        tasks.add(task);
     }
 
     public boolean isNumber(String str) {
@@ -51,66 +50,70 @@ public class Model {
         }
     }
 
-    /*
-    "                       1 - change state" +
-                        "\n2 - change group" +
-                        "\n3 - change starting time"+
-                        "\n4 - change ending time" +
-                        "r - remove"
-     */
     public void TaskFunctions(int userInput, View view, SaveAsJson saveAsJson) {
-        String userInputting = "";
-        while (true){
-
+        String userInputting;
+        boolean flag = true;
+        while (flag) {
+            view.showTasks(tasks);
             userInputting = view.showTaskFunctions();
             System.out.println();
             switch (userInputting) {
-                case "1":
-                    notDoneTasks.get(userInput).setState(notDoneTasks.get(userInput).getState() == State.NotDone ? State.Performed : State.NotDone);
-                    System.out.println(notDoneTasks.get(userInput).getTask() + " changed state to " + notDoneTasks.get(userInput).getState());
-                    break;
-                case "2":
+                case "1" -> {
+                    tasks.get(userInput).setState(tasks.get(userInput).getState() == State.NotDone ? State.Performed : State.NotDone);
+                    System.out.println(tasks.get(userInput).getTask() + " changed state to " + tasks.get(userInput).getState());
+                }
+                case "2" -> {
+                    boolean f = true;
+                    while (f){
+                        f = changeGroup(view.showGroups(), userInput);
+                    }
+                }
+                case "3" -> System.out.println();
+                case "4" -> System.out.println();
+                case "b" -> {
                     System.out.println();
-                    break;
-                case "3":
-                    System.out.println("");
-                    break;
-                case "4":
-                    System.out.println("");
-                    break;
-                case "r":
-                    System.out.println(notDoneTasks.get(userInput).getTask() + " removed");
-                    notDoneTasks.remove(userInput);
-                    saveAsJson.saveData(getTasks());
-                    break;
-                default:
-                    System.out.println("wrong function try again!");
+                    flag = false;
+                }
+                case "r" -> {
+                    System.out.println(tasks.get(userInput).getTask() + " removed");
+                    tasks.remove(userInput);
+                }
+                default -> System.out.println("wrong function try again!");
             }
+            saveAsJson.saveData(getTasks());
         }
 
     }
+    public boolean changeGroup(String str, int userInput){
+        try {
+            for (Group group: Group.values()){
+                if (group.description.equalsIgnoreCase(str)){
+                    this.tasks.get(userInput).setGroup(group);
+                    break;
+                }
+            }
+            return false;
+        }catch (Exception e){
+            return true;
+        }
+    }
 
-    public void recoveryTask(String str){
+    public void recoveryTask(String str) {
+        if (str.equalsIgnoreCase("")) return;
         String[] res2 = str.substring(str.indexOf("{") + 1, str.indexOf("}")).split(";");
         String[] res = res2[1].split(" ");
         Calendar calendarCreat = new GregorianCalendar();
         calendarCreat.set(Integer.parseInt(res[0]), Integer.parseInt(res[1]), Integer.parseInt(res[2]), Integer.parseInt(res[3]), Integer.parseInt(res[4]), Integer.parseInt(res[5]));
         Calendar calendarEnd = new GregorianCalendar();
         calendarEnd.set(Integer.parseInt(res[0]), Integer.parseInt(res[1]), Integer.parseInt(res[2]), Integer.parseInt(res[3]), Integer.parseInt(res[4]), Integer.parseInt(res[5]));
-        State state = (res2[3].equalsIgnoreCase("NotDone") ? State.NotDone : State.Performed);
-        Group group = Group.Inbox;
-        for (Group group1: Group.values()){
-            if (res2[3].equalsIgnoreCase(String.valueOf(group1))){
-                group = group1;
-                break;
-            }
-        }
-        notDoneTasks.add(new Task(res2[0], calendarCreat,  calendarEnd, group));
+        State state = (res2[4].equals("NotDone") ? State.NotDone : State.Performed);
+        Group group = Group.valueOf(res2[3]);
+        tasks.add(new Task(state, res2[0], calendarCreat, calendarEnd, group));
     }
 
     public Task createTask(View view) {
         String[] texts = {
-                "Task: ",
+                "What would you like to do ?: ",
                 "Start time (2022 08 26): ",
                 "end time (2022 08 26): "
         };
@@ -123,15 +126,9 @@ public class Model {
         for (String text : texts) {
             view.show(text);
             switch (i) {
-                case 1:
-                    task = scanner.nextLine();
-                    break;
-                case 2:
-                    creatCalendar(scanner, creatTime);
-                    break;
-                case 3:
-                    creatCalendar(scanner, endTime);
-                    break;
+                case 1 -> task = scanner.nextLine();
+                case 2 -> creatCalendar(scanner, creatTime);
+                case 3 -> creatCalendar(scanner, endTime);
             }
             i++;
         }
